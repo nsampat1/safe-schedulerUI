@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="runtime_2.11-0.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/runtime_2.11-0.1-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
