@@ -660,9 +660,6 @@ object Driver extends JFXApp{
 	rightPane.children.add(ll10)	 
 	rightPane.children.add(ll12)
 	
-	val res : Dataset[(Calendar, ChessEvent)] = event.joinWith(chessEvent, event("name") === chessEvent("player2"), "inner")
-	val temp = res.filter(ev => ev._1.name == player2)
-	temp.show()
               
     //val res : Dataset[(Calendar, ChessEvent)] = joinWithWrapper(event, chessEvent, "name", "player2", f) //PolicyStructMismatchException is being thrown here
 
