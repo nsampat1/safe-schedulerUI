@@ -655,7 +655,6 @@ object Driver extends JFXApp{
               .option("password", "")
               .save()
               
-   // val chessMeetingName = "[Chess-Event] " + (if (meetingName == "") (player1 + " - " + player2) else meetingName)
 	val ll10 = new Label("Event created successfully. Event details:")
 	val ll12 = new Label("Event name: " + chessMeetingName)
 	rightPane.children.add(ll10)	 
