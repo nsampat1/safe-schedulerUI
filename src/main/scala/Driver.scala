@@ -567,11 +567,8 @@ object Driver extends JFXApp{
 			val meetingIndex = b7.text.value.toInt
 			val meetingName = b8.text.value
 			val meetingDescription = b10.text.value
-			val chessMeetingName = "[Chess-Event] " + (if (meetingName == "") (player1 + " - " + player2) else meetingName)
-			val ll10 = new Label("Event created successfully. Event details:")
-			val ll12 = new Label("Event name: " + chessMeetingName)
-			rightPane.children.add(ll10)	 
-			rightPane.children.add(ll12)	 
+			createEvent(spark, calendarTable, conflictFreeTimes, meetingIndex, meetingName, meetingDescription, player1, player2, chessEventDs, rightPane)
+			
 		}
 	
 	}
@@ -595,7 +592,7 @@ object Driver extends JFXApp{
 
   def createEvent(sparkSession: SparkSession, event: Dataset[Calendar], conflictFreeTimes: List[java.util.Calendar],
                   meetingIndex: Int, meetingName: String = "", meetingDescription: String = "", player1: String, player2: String,
-                  chessEvent: Dataset[ChessEvent]): Unit = {
+                  chessEvent: Dataset[ChessEvent], rightPane: VBox): Unit = {
     import sparkSession.implicits._
     import org.apache.spark.sql.functions.col
 
@@ -657,6 +654,16 @@ object Driver extends JFXApp{
               .option("user", "root")
               .option("password", "")
               .save()
+              
+   // val chessMeetingName = "[Chess-Event] " + (if (meetingName == "") (player1 + " - " + player2) else meetingName)
+	val ll10 = new Label("Event created successfully. Event details:")
+	val ll12 = new Label("Event name: " + chessMeetingName)
+	rightPane.children.add(ll10)	 
+	rightPane.children.add(ll12)
+	
+	val res : Dataset[(Calendar, ChessEvent)] = event.joinWith(chessEvent, event("name") === chessEvent("player2"), "inner")
+	val temp = res.filter(ev => ev._1.name == player2)
+	temp.show()
               
     //val res : Dataset[(Calendar, ChessEvent)] = joinWithWrapper(event, chessEvent, "name", "player2", f) //PolicyStructMismatchException is being thrown here
 
