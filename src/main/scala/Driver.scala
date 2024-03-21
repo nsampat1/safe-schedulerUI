@@ -36,7 +36,6 @@ object Wrapper {
 	val cal : ChessEvent = db2.take(2)(1)
 	val chess : Calendar = db1.take(2)(1)
 	val r : Boolean = foo(chess, cal)
-	println(r)
 	var ds : Dataset[(Calendar, ChessEvent)] = {null}
 	if(r || col1 == "name" && col2 == "player2") {
 		ds = db1.joinWith(db2, db1("name") === db2("player2"), "inner")
